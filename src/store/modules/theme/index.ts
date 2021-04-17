@@ -34,7 +34,7 @@ const darkTheme = new Theme("#000");
 
 
 const state = {
-  mode: 'dark' as 'dark' | 'light'
+  themeName: localStorage.getItem('theme') || 'dark' as 'dark' | 'light'
 };
 
 const defineModule = <T extends Module<typeof state, any>>(mod: T) => mod;
@@ -44,13 +44,13 @@ export const ThemeModule = defineModule({
   state,
   getters: {
     currentTheme(state) {
-      return state.mode === 'dark' ? darkTheme : lightTheme;
+      return state.themeName === 'dark' ? darkTheme : lightTheme;
     }
   },
   mutations: {
-    SET_THEME: (state, newMode: typeof state['mode']) => {
-			console.log('SET THEME');
-      state.mode = newMode
+    SET_THEME: (state, newTheme: typeof state['themeName']) => {
+			localStorage.setItem('theme', newTheme)
+      state.themeName = newTheme
     }
   }
 });

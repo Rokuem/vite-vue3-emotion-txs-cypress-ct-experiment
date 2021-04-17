@@ -1,6 +1,7 @@
 import { computed, defineComponent } from 'vue';
 import { css } from '@emotion/css';
-import { storeApi } from '../../../store/index';
+import { storeApi } from '../../../store';
+import { ToggleDirection, UIToggler as Toggler } from '../../fields/togglers/UIToggler';
 
 export const AppNavbar = defineComponent({
   setup() {
@@ -23,12 +24,14 @@ export const AppNavbar = defineComponent({
       })
     });
 
-    const otherTheme = computed(() => storeApi.theme.state.mode === 'dark' ? 'light' : 'dark');
+    const otherTheme = computed(() => storeApi.theme.state.themeName === 'dark' ? 'light' : 'dark');
     const toggleTheme = () => storeApi.theme.mutations.SET_THEME(otherTheme.value);
+
+    const togglerDirection = computed(() => storeApi.theme.state.themeName === 'dark' ? ToggleDirection.RIGHT : ToggleDirection.LEFT);
 
     return () => (
       <nav class={navStyle.value} aria-label="Domain navigation">
-        <button onClick={toggleTheme}>{`${otherTheme.value} theme`}</button>
+        <Toggler values={['light', 'dark']} value={togglerDirection.value} onToggle={toggleTheme}></Toggler>
       </nav>
     );
   }

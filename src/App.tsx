@@ -34,7 +34,7 @@ export default defineComponent({
       paddingTop: theme.value.sizes.topNavHeight
     }));
     return () => (
-      <main class={[appStype.value, storeApi.theme.state.mode === 'dark' ? 'dark-mode' : 'light-mode']}>
+      <main class={[appStype.value, storeApi.theme.state.themeName === 'dark' ? 'dark-mode' : 'light-mode']}>
         <AppNavbar></AppNavbar>
         <RouterView></RouterView>
       </main>
