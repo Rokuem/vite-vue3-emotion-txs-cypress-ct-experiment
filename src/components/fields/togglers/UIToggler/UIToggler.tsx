@@ -1,8 +1,8 @@
-import { defineComponent, PropType, computed, reactive } from "vue";
-import { ToggleDirection } from "./types";
-import { css } from "@emotion/css";
-import { storeApi } from "../../../../store/index";
-import color from "color";
+import { defineComponent, PropType, computed, reactive } from 'vue';
+import { ToggleDirection } from './types';
+import { css } from '@emotion/css';
+import color from 'color';
+import { useTheme } from '../../../composables/useTheme';
 
 export const UIToggler = defineComponent({
   props: {
@@ -11,6 +11,7 @@ export const UIToggler = defineComponent({
       required: true,
     },
     values: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type: (Array as any) as PropType<[unknown, unknown]>,
       requred: true,
     },
@@ -28,10 +29,11 @@ export const UIToggler = defineComponent({
     const toggleValue = () => props.onToggle(oppositeDirection.value);
     const ballPosition = computed(() =>
       props.value === ToggleDirection.RIGHT
-        ? "calc(var(--toggler-width) - 100%)"
+        ? 'calc(var(--toggler-width) - 100%)'
         : 0
     );
-    const theme = computed(() => storeApi.theme.getters.currentTheme);
+
+    const theme = useTheme();
 
     const styles = reactive({
       toggler: computed(
