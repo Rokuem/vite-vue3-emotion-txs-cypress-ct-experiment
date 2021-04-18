@@ -1,2 +1,2 @@
-export { ToggleDirection } from './types';
-export { UIToggler } from './UIToggler';
+export { ToggleDirection } from "./types";
+export { UIToggler } from "./UIToggler";
