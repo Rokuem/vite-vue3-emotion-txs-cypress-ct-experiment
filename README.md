@@ -1,4 +1,4 @@
-# Vue 3 + Typescript + Vite + emotionJs
+# Vite + Vue 3 + CSS-in-JS(emotionjs) + TSX + cypress-ct experiment
 
 ## Setup
 
