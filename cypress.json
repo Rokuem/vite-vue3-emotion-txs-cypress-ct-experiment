@@ -1,4 +1,8 @@
 {
-  "testFiles": "**/*cy.*",
-  "componentFolder": "src"
+  "componentFolder": "src",
+  "testFiles": "**/*.cy.*",
+  "ignoreTestFiles": "**/*.snap",
+  "video": false,
+  "fixturesFolder": false,
+  "reporter": "spec"
 }

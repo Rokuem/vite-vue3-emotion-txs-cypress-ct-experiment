@@ -44,6 +44,7 @@ describe('UIToggler', () => {
   it('Renders', () => {
     mount(UITogglerPlayground);
     cy.get('[data-testid=toggler]').should('exist');
+    cy.matchImageSnapshot('Default toggler state');
   });
 
   it('Can be toggled', () => {
@@ -51,8 +52,7 @@ describe('UIToggler', () => {
     const toggler = cy.get('[data-testid=toggler]');
     toggler.click();
     toggler.should('have.attr', 'data-value', ToggleDirection.RIGHT);
-    toggler.click();
-    toggler.should('have.attr', 'data-value', ToggleDirection.LEFT);
+    cy.matchImageSnapshot('Toggler right');
   });
 
   it('Can be disabled', (done) => {
@@ -65,9 +65,27 @@ describe('UIToggler', () => {
     const toggler = cy.get('[data-testid=toggler]');
 
     toggler.click({ timeout: 100 });
+
     cy.once('fail', (err) => {
       expect(err.message).to.include('disabled');
       done();
     });
+
+    toggler.realHover();
+    cy.matchImageSnapshot('Toggler disabled and hovered');
+  });
+
+  it('Can be hovered', () => {
+    mount(UITogglerPlayground);
+    const toggler = cy.get('[data-testid=toggler]');
+    toggler.realHover();
+    cy.matchImageSnapshot('Toggler hovered');
+  });
+
+  it('Can be focused', () => {
+    mount(UITogglerPlayground);
+    const toggler = cy.get('[data-testid=toggler]');
+    toggler.focus();
+    cy.matchImageSnapshot('Toggler focused');
   });
 });
