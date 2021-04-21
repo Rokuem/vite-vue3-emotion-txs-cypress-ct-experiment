@@ -7,6 +7,9 @@ function getColors(mainColor: string) {
 
   return {
     background: main.toString(),
+    focusColor: darkMode ? main.lightness(70).toString() : main.darken(0.7).toString(),
+    underBackground: darkMode ? main.lightness(30).toString() : main.darken(0.3).toString(),
+    overBackground: darkMode ? main.lightness(50).toString() : main.darken(0.5).toString(),
     topNav: (darkMode ? main.lightness(10) : main.darken(0.1)).toString(),
     fontColor: darkMode ? "#999" : "#111",
     sectionBorderColor: (darkMode

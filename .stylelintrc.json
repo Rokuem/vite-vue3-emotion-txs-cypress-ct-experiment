@@ -1,0 +1,24 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "order/order": [
+			"custom-properties",
+			"declarations"
+		],
+    "property-no-unknown": [true, {
+      "ignoreProperties": ["label"]
+    }],
+    "custom-property-empty-line-before": "never",
+    "declaration-colon-newline-after": null,
+    "order/properties-alphabetical-order": true,
+    "function-name-case": null,
+    "no-eol-whitespace": null,
+    "no-missing-end-of-source-newline": null,
+    "function-whitespace-after": null,
+    "value-keyword-case": null,
+    "indentation": null
+  }
+}
