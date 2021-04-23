@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     watch: {
       ignored: [(path: string) => {
-        const ignored = path.includes('snapshots');
+        const ignored = path.includes('snapshots') || path.includes('screenshots');
         if (ignored) console.warn('Ignoring: ', path);
         return ignored;
       }],  
