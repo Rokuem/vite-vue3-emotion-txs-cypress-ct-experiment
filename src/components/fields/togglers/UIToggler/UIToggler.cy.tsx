@@ -70,6 +70,16 @@ describe('UIToggler', () => {
       expect(err.message).to.include('disabled');
       done();
     });
+  });
+
+  it('Does not trigger hover style when hovered and disabled', () => {
+    mount(UITogglerPlayground, {
+      props: {
+        disabled: true,
+      },
+    });
+
+    const toggler = cy.get('[data-testid=toggler]');
 
     toggler.realHover();
     cy.matchImageSnapshot('Toggler disabled and hovered');
