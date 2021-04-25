@@ -1,52 +1,54 @@
-import { css } from "@emotion/css";
-import { defineComponent, watch, computed } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
-import { AppNavbar } from "./components/navbars/AppNavbar/index";
-import { storeApi } from "./store";
-import { RouterView } from "vue-router";
+import { css } from '@emotion/css';
+import { computed, defineComponent, reactive, watch } from 'vue';
+import { AppNavbar } from './components/navbars/AppNavbar/index';
+import { storeApi } from './store';
+import { RouterView } from 'vue-router';
+import { useTheme } from './components/composables/style';
 
 export default defineComponent({
-  name: "App",
-  components: {
-    HelloWorld,
-  },
+  name: 'App',
   setup() {
-    const theme = computed(() => storeApi.theme.getters.currentTheme);
+    const theme = useTheme();
 
-    const bodyStyle = computed(() =>
-      css({
-        fontFamily: "Roboto, sans-serif",
-        webkitFontSmoothing: "antialiased",
-        mozOsxFontSmoothing: "grayscale",
-        textAlign: "center",
-        color: theme.value.colors.fontColor,
-        background: theme.value.colors.background,
-      })
+    const bodyStyle = computed(
+      () => css`
+        background: ${theme.value.getVar('--app-background-color')};
+        color: ${theme.value.getVar('--app-font-color')};
+        font-family: Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        ${theme.value.useAllVars()}
+      `
     );
+
+    const styles = reactive({
+      app: css`
+        padding-top: ${theme.value.getVar('--app-top-nav-height')};
+      `,
+    });
 
     watch(
       bodyStyle,
-      (newValue, oldValue) => {
-        document.body.classList.add(newValue);
-        if (oldValue) document.body.classList.remove(oldValue);
+      (newClassName, oldClassName) => {
+        if (oldClassName) {
+          document.body.classList.remove(oldClassName);
+        }
+
+        document.body.classList.add(newClassName);
       },
       {
         immediate: true,
       }
     );
 
-    const appStype = computed(() =>
-      css({
-        paddingTop: theme.value.sizes.topNavHeight,
-      })
-    );
     return () => (
       <main
         class={[
-          appStype.value,
-          storeApi.theme.state.themeName === "dark"
-            ? "dark-mode"
-            : "light-mode",
+          styles.app,
+          storeApi.theme.state.themeName === 'dark'
+            ? 'dark-mode'
+            : 'light-mode',
         ]}
       >
         <AppNavbar></AppNavbar>

@@ -1,7 +1,7 @@
 import { computed, defineComponent } from 'vue';
 import { css } from '@emotion/css';
 import { storeApi } from '../../../store';
-import { useTheme } from '../../composables/useTheme';
+import { useTheme } from '../../composables/style';
 import {
   ToggleDirection,
   UIToggler as Toggler,
@@ -9,24 +9,22 @@ import {
 
 export const AppNavbar = defineComponent({
   setup(_, ctx) {
-    const theme = useTheme();
+    const theme = useTheme().value;
 
-    const navStyle = computed(() => {
-      return css`
-        align-items: center;
-        background-color: ${theme.value.colors.topNav};
-        border: 1px solid ${theme.value.colors.sectionBorderColor};
-        box-sizing: border-box;
-        display: flex;
-        height: ${theme.value.sizes.topNavHeight};
-        justify-content: center;
-        left: 0;
-        padding: 16px;
-        position: fixed;
-        top: 0;
-        width: 100%;
-      `;
-    });
+    const navStyle = css`
+      align-items: center;
+      background-color: ${theme.getVar('--app-top-nav-color')};
+      border: 1px solid ${theme.getVar('--app-section-border-color')};
+      box-sizing: border-box;
+      display: flex;
+      height: ${theme.getVar('--app-top-nav-height')};
+      justify-content: center;
+      left: 0;
+      padding: 16px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    `;
 
     const otherTheme = computed(() =>
       storeApi.theme.state.themeName === 'dark' ? 'light' : 'dark'
@@ -41,7 +39,7 @@ export const AppNavbar = defineComponent({
     );
 
     return () => (
-      <nav class={navStyle.value} aria-label="Domain navigation">
+      <nav class={navStyle} aria-label="Domain navigation">
         <Toggler
           {...ctx.attrs}
           values={['light', 'dark']}
