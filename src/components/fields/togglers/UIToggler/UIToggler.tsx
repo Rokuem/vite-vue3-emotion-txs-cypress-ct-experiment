@@ -1,7 +1,38 @@
-import { defineComponent, PropType, computed, reactive } from 'vue';
+import { defineComponent, PropType, computed } from 'vue';
 import { ToggleDirection } from './types';
 import { css } from '@emotion/css';
-import { useTheme } from '../../../composables/style';
+import { useTheme, useVars } from '../../../composables/style';
+
+export enum UITogglerCssVars {
+  /**
+   * Total width of the toggler.
+   */
+  TogglerWidth = '--toggler-width',
+  /**
+   * Inner padding of the toggler. (from border to the ball).
+   */
+  TogglerPadding = '--toggler-padding',
+  /**
+   * Desired height of the toggler.
+   */
+  TogglerHeight = '--toggler-height',
+  /**
+   * Thickness of toggler border when focused
+   */
+  TogglerFocusBorderSize = '--toggler-focus-border-size',
+  /**
+   * Size of the toggler height + padding.
+   */
+  TogglerInnerHeight = '--toggler-inner-height',
+  /**
+   * Size of the toggler inner height + borders.
+   */
+  TogglerTotalHeight = '--toggler-total-height',
+  /**
+   * Width and height of the toggler ball.
+   */
+  BallSize = '--ball-size',
+}
 
 export const UIToggler = defineComponent({
   props: {
@@ -34,33 +65,37 @@ export const UIToggler = defineComponent({
 
     const theme = useTheme().value;
 
+    const { useAllVars, getVar } = useVars({
+      [UITogglerCssVars.TogglerWidth]: '28px',
+      [UITogglerCssVars.TogglerPadding]: '2px',
+      [UITogglerCssVars.TogglerHeight]: '10px',
+      [UITogglerCssVars.TogglerFocusBorderSize]: '2px',
+      [UITogglerCssVars.TogglerInnerHeight]: `calc(var(${UITogglerCssVars.TogglerHeight}) + var(${UITogglerCssVars.TogglerPadding}) * 2)`,
+      [UITogglerCssVars.BallSize]: 'var(--toggler-height)',
+      [UITogglerCssVars.TogglerTotalHeight]: `calc(var(${UITogglerCssVars.TogglerInnerHeight}) + var(${UITogglerCssVars.TogglerFocusBorderSize}) * 2)`,
+    });
+
     const styles = {
       toggler: css`
-        --toggler-width: 28px;
-        --toggler-padding: 2px;
-        --toggler-height: 10px;
-        --toggler-border-size: 2px;
-        --ball-size: var(--toggler-height);
+        ${useAllVars()}
 
         background: ${theme.getVar('--app-under-background-color')};
-        border: var(--toggler-border-size) solid transparent;
-        border-radius: calc(
-          calc(
-              var(--toggler-height) + var(--toggler-padding) * 2 +
-                var(--toggler-border-size) * 2
-            ) / 2
-        );
+        border: ${getVar(UITogglerCssVars.TogglerFocusBorderSize)} solid
+          transparent;
+        border-radius: calc(${getVar(UITogglerCssVars.TogglerTotalHeight)} / 2);
         box-sizing: content-box;
         cursor: pointer;
-        height: var(--toggler-height);
+        height: ${getVar(UITogglerCssVars.TogglerHeight)};
         label: UIToggler;
-        padding: var(--toggler-padding);
+        padding: ${getVar(UITogglerCssVars.TogglerPadding)};
         position: relative;
         transition: border 0.15s, opacity 0.15s, filter 0.15s;
-        width: var(--toggler-width);
+        width: ${getVar(UITogglerCssVars.TogglerWidth)};
 
         &--right {
-          --ball-position: calc(var(--toggler-width) - 100%);
+          --ball-position: calc(
+            ${getVar(UITogglerCssVars.TogglerWidth)} - 100%
+          );
         }
 
         &--left {

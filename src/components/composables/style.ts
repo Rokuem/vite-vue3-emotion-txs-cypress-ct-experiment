@@ -14,7 +14,7 @@ export const useVars = <T extends Record<`--${string}`, string | number>>(vars: 
 
       return varList.join('\n');
     },
-    getVar: (name: keyof T, fallback?: string | number) => `var(${name}${fallback ? ', ' + fallback : ''});`,
+    getVar: (name: keyof T, fallback?: string | number) => `var(${name}${fallback ? ', ' + fallback : ''})`,
     setVar: (name: keyof T, value: string | number) => `${name}: ${value};`
   }
 }

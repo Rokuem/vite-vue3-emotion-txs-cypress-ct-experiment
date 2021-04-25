@@ -8,9 +8,7 @@
 			"custom-properties",
 			"declarations"
 		],
-    "property-no-unknown": [true, {
-      "ignoreProperties": ["label"]
-    }],
+    "property-no-unknown": null,
     "custom-property-empty-line-before": "never",
     "declaration-colon-newline-after": null,
     "order/properties-alphabetical-order": true,
