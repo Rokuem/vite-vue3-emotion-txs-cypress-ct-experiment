@@ -4,6 +4,7 @@ import { AppNavbar } from './components/navbars/AppNavbar/index';
 import { storeApi } from './store';
 import { RouterView } from 'vue-router';
 import { useTheme } from './components/composables/style';
+import { ThemeCssVars } from './store/modules/theme';
 
 export default defineComponent({
   name: 'App',
@@ -12,8 +13,8 @@ export default defineComponent({
 
     const bodyStyle = computed(
       () => css`
-        background: ${theme.value.getVar('--app-background-color')};
-        color: ${theme.value.getVar('--app-font-color')};
+        background: ${theme.value.getVar(ThemeCssVars.BackgroundColor)};
+        color: ${theme.value.getVar(ThemeCssVars.FontColor)};
         font-family: Roboto, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -24,7 +25,7 @@ export default defineComponent({
 
     const styles = reactive({
       app: css`
-        padding-top: ${theme.value.getVar('--app-top-nav-height')};
+        padding-top: ${theme.value.getVar(ThemeCssVars.TopNavHeight)};
       `,
     });
 

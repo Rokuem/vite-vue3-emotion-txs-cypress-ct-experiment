@@ -2,6 +2,7 @@ import { defineComponent, PropType, computed } from 'vue';
 import { ToggleDirection } from './types';
 import { css } from '@emotion/css';
 import { useTheme, useVars } from '../../../composables/style';
+import { ThemeCssVars } from '../../../../store/modules/theme';
 
 export enum UITogglerCssVars {
   /**
@@ -79,7 +80,7 @@ export const UIToggler = defineComponent({
       toggler: css`
         ${useAllVars()}
 
-        background: ${theme.getVar('--app-under-background-color')};
+        background: ${theme.getVar(ThemeCssVars.UnderBackgroundColor)};
         border: ${getVar(UITogglerCssVars.TogglerFocusBorderSize)} solid
           transparent;
         border-radius: calc(${getVar(UITogglerCssVars.TogglerTotalHeight)} / 2);
@@ -103,9 +104,9 @@ export const UIToggler = defineComponent({
         }
 
         &:focus {
-          --ball-border: 2px solid ${theme.getVar('--app-focus-color')};
+          --ball-border: 2px solid ${theme.getVar(ThemeCssVars.FocusColor)};
 
-          border-color: ${theme.getVar('--app-focus-color')};
+          border-color: ${theme.getVar(ThemeCssVars.FocusColor)};
           outline: none;
         }
 
@@ -119,7 +120,7 @@ export const UIToggler = defineComponent({
         }
       `,
       togglerBall: css`
-        background: ${theme.getVar('--app-over-background-color')};
+        background: ${theme.getVar(ThemeCssVars.OverBackgroundColor)};
         border: var(--ball-border, none);
         border-radius: 50%;
         box-sizing: border-box;
