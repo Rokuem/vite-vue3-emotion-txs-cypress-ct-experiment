@@ -51,7 +51,8 @@ describe('UIToggler', () => {
     mount(UITogglerPlayground);
     const toggler = cy.get('[data-testid=toggler]');
     toggler.click();
-    toggler.should('have.attr', 'data-value', ToggleDirection.RIGHT);
+    const togglerHiddenInput = toggler.get('input[type="hidden"]');
+    togglerHiddenInput.should('have.attr', 'value', ToggleDirection.RIGHT);
     cy.matchImageSnapshot('Toggler right');
   });
 

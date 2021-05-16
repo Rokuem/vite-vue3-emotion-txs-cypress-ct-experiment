@@ -10,6 +10,8 @@ export const Playground = defineComponent({
 
     const styles = {
       playground: css`
+        ${theme.useAllVars()}
+
         align-items: center;
         background: ${theme.getVar(ThemeCssVars.BackgroundColor)};
         display: flex;

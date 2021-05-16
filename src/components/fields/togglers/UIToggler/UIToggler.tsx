@@ -1,4 +1,4 @@
-import { defineComponent, PropType, computed } from 'vue';
+import { defineComponent, PropType, computed, Fragment } from 'vue';
 import { ToggleDirection } from './types';
 import { css } from '@emotion/css';
 import { useTheme, useVars } from '../../../composables/style';
@@ -54,8 +54,12 @@ export const UIToggler = defineComponent({
       type: Boolean,
       default: false,
     },
+    name: {
+      type: String,
+      default: 'toggler',
+    },
   } as const,
-  setup(props) {
+  setup(props, ctx) {
     const oppositeDirection = computed(() =>
       props.value === ToggleDirection.LEFT
         ? ToggleDirection.RIGHT
@@ -136,14 +140,17 @@ export const UIToggler = defineComponent({
     };
 
     return () => (
-      <button
-        data-value={props.value}
-        onClick={toggleValue}
-        class={[styles.toggler, [styles.toggler + '--' + props.value]]}
-        disabled={props.disabled}
-      >
-        <div class={styles.togglerBall}></div>
-      </button>
+      <Fragment>
+        <button
+          onClick={toggleValue}
+          class={[styles.toggler, [styles.toggler + '--' + props.value]]}
+          disabled={props.disabled}
+          {...ctx.attrs}
+        >
+          <div class={styles.togglerBall}></div>
+        </button>
+        <input type="hidden" value={props.value} name={props.name} />
+      </Fragment>
     );
   },
 });
