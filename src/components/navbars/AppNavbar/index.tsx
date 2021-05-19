@@ -6,6 +6,7 @@ import {
   ToggleDirection,
   UIToggler as Toggler,
 } from '../../fields/togglers/UIToggler';
+import { ThemeCssVars } from '../../../store/modules/theme';
 
 export const AppNavbar = defineComponent({
   setup(_, ctx) {
@@ -13,11 +14,11 @@ export const AppNavbar = defineComponent({
 
     const navStyle = css`
       align-items: center;
-      background-color: ${theme.getVar('--app-top-nav-color')};
-      border: 1px solid ${theme.getVar('--app-section-border-color')};
+      background-color: ${theme.getVar(ThemeCssVars.TopNavColor)};
+      border: 1px solid ${theme.getVar(ThemeCssVars.SectionBorderColor)};
       box-sizing: border-box;
       display: flex;
-      height: ${theme.getVar('--app-top-nav-height')};
+      height: ${theme.getVar(ThemeCssVars.TopNavHeight)};
       justify-content: center;
       left: 0;
       padding: 16px;

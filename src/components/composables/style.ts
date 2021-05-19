@@ -30,6 +30,7 @@ export const useTheme = () =>
 
     return {
       ...theme,
-      ...vars
+      ...vars,
+      currentThemeName: computed(() => storeApi.theme.state.themeName),
     }
   });
